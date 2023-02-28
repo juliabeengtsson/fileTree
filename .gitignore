@@ -1,0 +1,11 @@
+# Nuxt dev/build outputs
+.output
+.nuxt
+# Node dependencies
+node_modules
+# System files
+*.log
+
+# file: ~/.gitignore_global
+.DS_Store
+.idea
