@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<!-- Imported fileTree component -->
 		<FileTree />
 	</div>
 </template>

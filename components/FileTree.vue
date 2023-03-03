@@ -4,7 +4,9 @@
 
 		<div class="grid grid-cols-3 gap-3">
 			<div class="col-span-1 bg-gray-200 py-5 pl-5 rounded">
+				<!-- Loop for first step in fileTree -->
 				<div v-for="file of fileTree" class="py-3">
+					<!-- fileTree with childrens (folders) -->
 					<div v-if="file.children.length > 0" class="cursor-pointer flex items-center justify-between relative">
 						<div class="flex gap-3 items-center" @click="showFiles(file)">
 							<FolderIcon />
@@ -15,11 +17,13 @@
 							<ContextMenu />
 						</div>
 					</div>
+					<!-- fileTree without childrens (files) -->
 					<div v-if="file.children.length <= 0" class="cursor-pointer flex items-center justify-between relative">
 						<div class="flex gap-3 items-center" @click="showFiles(file)">
 							<FileIcon />
 							<p>{{ file.pathName }}</p>
 						</div>
+						<!-- Dropdown menu -->
 						<div class="mr-5">
 							<ContextMenu />
 						</div>
@@ -28,11 +32,14 @@
 			</div>
 
 			<div class="col-span-2 bg-gray-200 py-5 pl-5 rounded">
+				<!-- Close all folders button -->
 				<div class="cursor-pointer font-semibold flex items-center gap-3" @click="openPrevious()" v-if="openedFiles.length > 0">
 					<LeftArrowIcon />
 					<p>Stäng</p>
 				</div>
+				<!-- Loop for folders with childrens -->
 				<div v-for="file of openedFiles" class="py-3">
+					<!-- second folder with childrens -->
 					<div v-if="file.children.length > 0" class="cursor-pointer flex items-center justify-between relative">
 						<div class="flex gap-3 items-center" @click="showFiles(file)">
 							<FolderIcon />
@@ -43,11 +50,13 @@
 							<ContextMenu />
 						</div>
 					</div>
+					<!-- second folder without childrens (files) -->
 					<div v-if="file.children.length <= 0" class="cursor-pointer flex items-center justify-between relative">
 						<div class="flex gap-3 items-center" @click="showFiles(file)">
 							<FileIcon />
 							<p>{{ file.pathName }}</p>
 						</div>
+						<!-- Dropdown menu -->
 						<div class="mr-5">
 							<ContextMenu />
 						</div>
@@ -66,13 +75,14 @@ import ArrowIcon from "./svgs/ArrowIcon";
 import LeftArrowIcon from "./svgs/LeftArrowIcon";
 import ContextMenu from "./ContextMenu";
 
-const fileNames = getData()
+const fileNames = getData() // get data from services
 const openedFiles = ref([])
 
-let fileTree = [];
+let fileTree = []; // created an empty array to use in forEach function and push the result
 let level = {fileTree};
 
 fileNames.forEach(path => {
+	// use .split to creat an array for each object
 	path.split('/').reduce((result, pathName) => {
 		if(!result[pathName]) {
 			result[pathName] = {fileTree: []};
@@ -82,12 +92,14 @@ fileNames.forEach(path => {
 	}, level)
 })
 
+// Function for open folders and files
 function showFiles(filesToOpen) {
 	if(filesToOpen.children.length > 0) {
 		openedFiles.value = filesToOpen.children
 	}
 }
 
+// Function for close all folders and files
 function openPrevious() {
 	openedFiles.value = []
 }
