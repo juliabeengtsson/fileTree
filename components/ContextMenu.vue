@@ -1,10 +1,10 @@
 <template>
 	<div>
-		<div class="mr-5" @click="toggle()">
+		<div class="mr-5 p-3" @click="toggle()">
 			<ContextIcon />
 		</div>
-
-		<div v-if="isHidden" id="dropdown" class="absolute right-1 top-6 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow block">
+		<!-- Dropdown menu for delete and editing -->
+		<div v-if="isHidden" id="dropdown" class="absolute right-1 top-8 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow block">
 			<ul class="py-1 text-sm text-gray-700"
 				aria-labelledby="dropdownMenuIconHorizontalButton">
 				<li>
